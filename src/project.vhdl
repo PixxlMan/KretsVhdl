@@ -138,7 +138,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(0)
 	);
-	o_values(0) <= output_buffer(0) when (clk and (not w));
+	o_values(0) <= output_buffer(0) when (clk and not(w));
 
 	bit_1: register_bit
 	port map (
@@ -147,7 +147,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(1)
 	);
-	o_values(1) <= output_buffer(1) when (clk and (not w));
+	o_values(1) <= output_buffer(1) when (clk and not(w));
 
 	bit_2: register_bit
 	port map (
@@ -156,7 +156,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(2)
 	);
-	o_values(2) <= output_buffer(2) when (clk and (not w));
+	o_values(2) <= output_buffer(2) when (clk and not(w));
 
 	bit_3: register_bit
 	port map (
@@ -165,7 +165,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(3)
 	);
-	o_values(3) <= output_buffer(3) when (clk and (not w));
+	o_values(3) <= output_buffer(3) when (clk and not(w));
 
 	bit_4: register_bit
 	port map (
@@ -174,7 +174,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(4)
 	);
-	o_values(4) <= output_buffer(4) when (clk and (not w));
+	o_values(4) <= output_buffer(4) when (clk and not(w));
 
 	bit_5: register_bit
 	port map (
@@ -183,7 +183,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(5)
 	);
-	o_values(5) <= output_buffer(5) when (clk and (not w));
+	o_values(5) <= output_buffer(5) when (clk and not(w));
 	
 	bit_6: register_bit
 	port map (
@@ -192,7 +192,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(6)
 	);
-	o_values(6) <= output_buffer(6) when (clk and (not w));
+	o_values(6) <= output_buffer(6) when (clk and not(w));
 
 	bit_7: register_bit
 	port map (
@@ -201,7 +201,7 @@ begin
 	  rst => rst,
 	  q   => output_buffer(7)
 	);
-	o_values(7) <= output_buffer(7) when (clk and (not w));
+	o_values(7) <= output_buffer(7) when (clk and not(w));
 
 end Behavioral;
 
