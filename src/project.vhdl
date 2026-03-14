@@ -19,6 +19,7 @@ architecture Behavioral of tt_um_example is
 component register_bit is
     port (
         v       : in std_logic;
+        u       : in std_logic;
         o       : out std_logic;
         o_n     : out std_logic
     );
