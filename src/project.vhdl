@@ -24,13 +24,16 @@ component register_bit is
 		o_n     : buffer std_logic
 	);
 end component;
+signal value: std_logic;
 begin
 	bit_1: register_bit
 	port map (
 		v   => ui_in(0),
 		u   => clk,
-		o   => uo_out(0)
+		o   => value
 	);
+
+	uo_out(0) <= value;
 
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
