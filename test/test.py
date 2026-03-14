@@ -55,4 +55,4 @@ async def send(dut, write: bool, register: int, value: int) -> int:
     
     await ClockCycles(dut.clk, 1)
 
-    return dut.uo_out.value
+    return int(dut.uo_out.value)
