@@ -40,6 +40,7 @@ jobs:
 
       - name: Run tests
         run: |
+          cat /home/runner/work/KretsVhdl/KretsVhdl/test/../src/generated/tt_um_registers_circ.v
           cd test
           make clean
           make
