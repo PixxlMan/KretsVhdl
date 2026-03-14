@@ -45,14 +45,24 @@ async def test_project(dut):
 
     assert await send(dut, False, 3) == 35
     assert await send(dut, False, 2) == 25
-    
+
     assert await send(dut, False, 1) == 200
 
 
 async def send(dut, write: bool, register: int, value: int = 0) -> int:
     dut.ui_in.value = value
 
-    write_value = register << 2
+    write_value = 0
+
+    if register == 0:
+        pass
+    elif register == 1:
+        write_value = set_bit(write_value, 1)
+    elif register == 2:
+        write_value = set_bit(write_value, 2)
+    elif register == 3:
+        write_value = set_bit(write_value, 1)
+        write_value = set_bit(write_value, 2)
 
     if write:
         write_value = set_bit(write_value, 0)
