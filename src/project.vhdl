@@ -56,7 +56,7 @@ architecture Behavioral of register_bit is
 begin
 
 	s <= v and u;
-	r <= not(s);
+	r <= not(v) and u;
 	o <= s nand o_n;
 	o_n <= r nand o;
 	
