@@ -29,23 +29,15 @@ async def test_project(dut):
     
     #######
 
-    dut.ui_in.value = 234
+    send(dut, True, 0, 100)
+    send(dut, True, 1, 200)
 
-    dut.uio_in.value = 1 # write to r0
+    assert send(dut, False, 0, 0) == 100
+    assert send(dut, False, 1, 0) == 200
+    assert send(dut, False, 0, 0) == 100
 
-    await ClockCycles(dut.clk, 1)
 
-    dut.uio_in.value = 0
-    
-    await ClockCycles(dut.clk, 1)
-
-    assert dut.uo_out.value == 234
-
-    await ClockCycles(dut.clk, 10)
-
-    assert dut.uo_out.value == 234
-
-async def send(dut, write: bool, register: int, value: int):
+async def send(dut, write: bool, register: int, value: int) -> int:
     dut.ui_in.value = value
 
     if write:
@@ -62,3 +54,5 @@ async def send(dut, write: bool, register: int, value: int):
             dut.uio_in.value = 2
     
     await ClockCycles(dut.clk, 1)
+
+    return dut.uo_out.value
