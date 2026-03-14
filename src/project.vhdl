@@ -52,9 +52,13 @@ entity register_bit is
 end register_bit;
 
 architecture Behavioral of register_bit is
+    signal top_right: bit := 0;
+    signal bottom_right: bit := 1;
 begin
 
-    o <= s nand o_n;
-    o_n <= r nand o;
+    top_right <= s nand bottom_right;
+    bottom_right <= r nand top_right;
+    o <= top_right;
+    o_n <= bottom_right;
 
 end Behavioral;
