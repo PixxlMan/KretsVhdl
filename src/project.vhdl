@@ -37,7 +37,9 @@ component register_mux is
 	port (
 		register_0	: in std_logic_vector(7 downto 0);
 		register_1	: in std_logic_vector(7 downto 0);
-		selector	: in std_logic;
+		register_2	: in std_logic_vector(7 downto 0);
+		register_3	: in std_logic_vector(7 downto 0);
+		selector	: in std_logic_vector(1 downto 0);
 		output		: out std_logic_vector(7 downto 0)
 	);
 end component;
@@ -66,6 +68,8 @@ begin
 	port map (
 	  register_0 => register_0_buffer,
 	  register_1 => register_1_buffer,
+	  register_2 => register_2_buffer,
+	  register_3 => register_3_buffer,
 	  selector   => addr_input,
 	  output     => uo_out
 	);
