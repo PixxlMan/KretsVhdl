@@ -47,18 +47,18 @@ signal register_1_buffer: std_logic_vector(7 downto 0);
 signal register_2_buffer: std_logic_vector(7 downto 0);
 signal register_3_buffer: std_logic_vector(7 downto 0);
 signal write: std_logic;
-signal addr: std_logic_vector(1 downto 0);
+signal addr_input: std_logic_vector(1 downto 0);
 begin
 
 	write <= uio_in(0);
-	addr <= ui_in(1 to 2);
+	addr_input <= ui_in(2 downto 1);
 	
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
 	
 	control_unit_inst: control_unit
 	port map (
-	  addr    => addr,
+	  addr    => addr_input,
 	  clk_reg => reg_clks
 	);
 
@@ -66,7 +66,7 @@ begin
 	port map (
 	  register_0 => register_0_buffer,
 	  register_1 => register_1_buffer,
-	  selector   => addr,
+	  selector   => addr_input,
 	  output     => uo_out
 	);
 	
