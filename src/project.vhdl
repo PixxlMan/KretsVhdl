@@ -35,10 +35,10 @@ component control_unit is
 		w_reg_1				: out std_logic
 	);
 end component;
-signal clk_0: bit;
-signal clk_1: bit;
-signal w_0: bit;
-signal w_1: bit;
+signal clk_0: std_logic;
+signal clk_1: std_logic;
+signal w_0: std_logic;
+signal w_1: std_logic;
 begin
 	
 	uio_out <= "00000000";
