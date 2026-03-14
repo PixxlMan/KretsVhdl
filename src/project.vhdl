@@ -25,6 +25,11 @@ component register_bit is
 	);
 end component;
 begin
+	
+	uo_out <= "00000000";
+	uio_out <= "00000000";
+	uio_oe <= "00000000";
+	
 	register_bit_inst: register_bit
 	port map (
 	  v   => ui_in(0),
@@ -32,9 +37,6 @@ begin
 	  rst => rst_n,
 	  q   => uo_out(0)
 	);
-
-	uio_out <= "00000000";
-	uio_oe <= "00000000";
 
 end Behavioral;
 
