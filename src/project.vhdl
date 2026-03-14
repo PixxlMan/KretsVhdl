@@ -266,6 +266,6 @@ end register_mux;
 architecture Behavioral of register_mux is
 begin
 
-	output <= register_0 when (not selector) else register_1;
+	output <= register_0 when (selector = '0') else register_1;
 
 end Behavioral;
