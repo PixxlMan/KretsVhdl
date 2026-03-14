@@ -126,79 +126,82 @@ component register_bit is
 		q		: out std_logic
 	);
 end component;
-signal bq: std_logic_vector(7 downto 0);
+signal output_buffer:	std_logic_vector(7 downto 0);
+signal write:			std_logic;
 begin
+	write <= clk and w;
+
 	bit_0: register_bit
 	port map (
 	  v   => values(0),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
-	  q   => bq(0)
+	  q   => output_buffer(0)
 	);
-	o_values(0) <= bq(0) when (clk and (not w));
+	o_values(0) <= output_buffer(0) when (clk and (not w));
 
 	bit_1: register_bit
 	port map (
 	  v   => values(1),
 	  w   => clk and w,
 	  rst => rst,
-	  q   => bq(1)
+	  q   => output_buffer(1)
 	);
-	o_values(1) <= bq(1) when (clk and (not w));
+	o_values(1) <= output_buffer(1) when (clk and (not w));
 
 	bit_2: register_bit
 	port map (
 	  v   => values(2),
 	  w   => clk and w,
 	  rst => rst,
-	  q   => bq(2)
+	  q   => output_buffer(2)
 	);
-	o_values(2) <= bq(2) when (clk and (not w));
+	o_values(2) <= output_buffer(2) when (clk and (not w));
 
 	bit_3: register_bit
 	port map (
 	  v   => values(3),
 	  w   => clk and w,
 	  rst => rst,
-	  q   => bq(3)
+	  q   => output_buffer(3)
 	);
-	o_values(3) <= bq(3) when (clk and (not w));
+	o_values(3) <= output_buffer(3) when (clk and (not w));
 
 	bit_4: register_bit
 	port map (
 	  v   => values(4),
 	  w   => clk and w,
 	  rst => rst,
-	  q   => bq(4)
+	  q   => output_buffer(4)
 	);
-	o_values(4) <= bq(4) when (clk and (not w));
+	o_values(4) <= output_buffer(4) when (clk and (not w));
 
 	bit_5: register_bit
 	port map (
 	  v   => values(5),
 	  w   => clk and w,
 	  rst => rst,
-	  q   => bq(5)
+	  q   => output_buffer(5)
 	);
-	o_values(5) <= bq(5) when (clk and (not w));
+	o_values(5) <= output_buffer(5) when (clk and (not w));
 	
 	bit_6: register_bit
 	port map (
 	  v   => values(6),
 	  w   => clk and w,
 	  rst => rst,
-	  q   => bq(6)
+	  q   => output_buffer(6)
 	);
-	o_values(6) <= bq(6) when (clk and (not w));
+	o_values(6) <= output_buffer(6) when (clk and (not w));
 
 	bit_7: register_bit
 	port map (
 	  v   => values(7),
 	  w   => clk and w,
 	  rst => rst,
-	  q   => bq(7)
+	  q   => output_buffer(7)
 	);
-	o_values(7) <= bq(7) when (clk and (not w));
+	o_values(7) <= output_buffer(7) when (clk and (not w));
 
 end Behavioral;
 
