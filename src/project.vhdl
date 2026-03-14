@@ -19,20 +19,46 @@ architecture Behavioral of tt_um_example is
 component register_8bit is
 	port (
 		values  : in std_logic_vector(7 downto 0);
-		clk		: in std_logic;
+		u		: in std_logic;
 		rst		: in std_logic;
 		o_values: out std_logic_vector(7 downto 0)
 	);
 end component;
+component control_unit is
+	port (
+		w					: in std_logic;
+		addr				: in std_logic; 
+		w_reg_0				: out std_logic;
+		w_reg_1				: out std_logic
+	);
+end component;
+signal w_0: bit;
+signal w_1: bit;
 begin
 	
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
 
-	register_8bit_inst: register_8bit
+	control_unit_inst: control_unit
+	port map (
+	  w       => uio_in(0),
+	  addr    => uio_in(1),
+	  w_reg_0 => w_0,
+	  w_reg_1 => w_1
+	);
+
+	register_0: register_8bit
 	port map (
 	  values   => ui_in,
-	  clk      => clk,
+	  u        => w_0,
+	  rst      => rst_n,
+	  o_values => uo_out
+	);
+
+	register_1: register_8bit
+	port map (
+	  values   => ui_in,
+	  u        => w_1,
 	  rst      => rst_n,
 	  o_values => uo_out
 	);
@@ -46,7 +72,7 @@ use IEEE.NUMERIC_STD.ALL;
 entity register_bit is
 	port (
 		v       : in std_logic;
-		clk		: in std_logic;
+		u		: in std_logic;
 		rst		: in std_logic;
 		q		: out std_logic
 	);
@@ -55,9 +81,9 @@ end register_bit;
 architecture Behavioral of register_bit is
 begin
 
-	process(clk)
+	process(u)
 	begin
-		if rising_edge(clk) then
+		if rising_edge(u) then
 			if rst = '1' then
 				q <= '0';
 			else
@@ -85,7 +111,7 @@ architecture Behavioral of register_8bit is
 component register_bit is
 	port (
 		v       : in std_logic;
-		clk		: in std_logic;
+		u		: in std_logic;
 		rst		: in std_logic;
 		q		: out std_logic
 	);
@@ -94,7 +120,7 @@ begin
 	bit_0: register_bit
 	port map (
 	  v   => values(0),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(0)
 	);
@@ -102,7 +128,7 @@ begin
 	bit_1: register_bit
 	port map (
 	  v   => values(1),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(1)
 	);
@@ -110,7 +136,7 @@ begin
 	bit_2: register_bit
 	port map (
 	  v   => values(2),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(2)
 	);
@@ -118,7 +144,7 @@ begin
 	bit_3: register_bit
 	port map (
 	  v   => values(3),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(3)
 	);
@@ -126,7 +152,7 @@ begin
 	bit_4: register_bit
 	port map (
 	  v   => values(4),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(4)
 	);
@@ -134,7 +160,7 @@ begin
 	bit_5: register_bit
 	port map (
 	  v   => values(5),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(5)
 	);
@@ -142,7 +168,7 @@ begin
 	bit_6: register_bit
 	port map (
 	  v   => values(6),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(6)
 	);
@@ -150,9 +176,30 @@ begin
 	bit_7: register_bit
 	port map (
 	  v   => values(7),
-	  clk => clk,
+	  u => clk,
 	  rst => rst,
 	  q   => o_values(7)
 	);
 
+end Behavioral;
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity control_unit is
+	port (
+		w					: in std_logic;
+		addr				: in std_logic; 
+		w_reg_0				: out std_logic;
+		w_reg_1				: out std_logic
+	);
+end control_unit;
+
+architecture Behavioral of control_unit is
+begin
+
+	w_reg_0 <= w and (not addr);
+	w_reg_1 <= w and (addr);
+	
 end Behavioral;
