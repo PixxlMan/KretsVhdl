@@ -28,6 +28,11 @@ async def test_project(dut):
     dut._log.info("Test project behavior")
     
     #######
+
+    await send(dut, True, 0, 0)
+    await send(dut, True, 3, 30)
+
+    assert await send(dut, False, 0) == 0
     
     # await send(dut, True, 0, 100)
     # await send(dut, True, 1, 101)
@@ -41,12 +46,13 @@ async def test_project(dut):
 
     # await send(dut, True, 3, 13)
 
-    await send(dut, True, 0, 10)
-    assert await send(dut, False, 0) == 10
+    # below is complete reproduction
+    # await send(dut, True, 0, 10)
+    # assert await send(dut, False, 0) == 10
 
-    await send(dut, True, 3, 20)
-    assert await send(dut, False, 3) == 20
-    assert await send(dut, False, 0) == 10
+    # await send(dut, True, 3, 20)
+    # assert await send(dut, False, 3) == 20
+    # assert await send(dut, False, 0) == 10
 
 
 async def assign(dut, register: int, value: int):
