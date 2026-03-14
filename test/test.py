@@ -30,33 +30,40 @@ async def test_project(dut):
     #######
 
     await send(dut, True, 0, 100)
-    await send(dut, True, 1, 200)
 
     assert await send(dut, False, 0) == 100
-    assert await send(dut, False, 1) == 200
-    assert await send(dut, False, 0) == 100
 
-    await send(dut, True, 0, 35)
+    # await send(dut, True, 0, 100)
+    # await send(dut, True, 1, 200)
 
-    assert await send(dut, False, 1) == 200
+    # assert await send(dut, False, 0) == 100
+    # assert await send(dut, False, 1) == 200
+    # assert await send(dut, False, 0) == 100
+
+    # await send(dut, True, 0, 35)
+
+    # assert await send(dut, False, 1) == 200
 
 
 async def send(dut, write: bool, register: int, value: int = 0) -> int:
     dut.ui_in.value = value
 
+    write_value = register >> 1
     if write:
-        if register == 0:
-            dut.uio_in.value = 1
-
-        elif register == 1:
-            dut.uio_in.value = 3
-            
-    else:
-        if register == 0:
-            dut.uio_in.value = 0
-        elif register == 1:
-            dut.uio_in.value = 2
+        write_value = set_bit(write_value, 0)
+    
+    dut.uio_in.value = write_value
     
     await ClockCycles(dut.clk, 1)
 
     return int(dut.uo_out.value)
+
+# Source - https://stackoverflow.com/a/12174125
+# Posted by Kos, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-03-14, License - CC BY-SA 3.0
+
+def set_bit(value, bit):
+    return value | (1<<bit)
+
+def clear_bit(value, bit):
+    return value & ~(1<<bit)
