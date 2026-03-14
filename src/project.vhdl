@@ -16,20 +16,38 @@ entity tt_um_example is
 end tt_um_example;
 
 architecture Behavioral of tt_um_example is
+component register_bit is
+    port (
+        s       : in std_logic;
+        r       : in std_logic;
+        o       : out std_logic;
+        o_n     : out std_logic
+    );
+end component;
 begin
-    
-    uo_out <= std_logic_vector(unsigned(ui_in) + unsigned(uio_in));
+    bit_1: register_bit
+    port map (
+        s   => ui_in(0),
+        r   => not(ui_in(0)),
+        o   => uo_out(0)
+    );
+
+    --uo_out <= std_logic_vector(unsigned(ui_in) + unsigned(uio_in));
     uio_out <= "00000000";
     uio_oe <= "00000000";
 
 end Behavioral;
 
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
 entity register_bit is
     port (
-        s       : in bit;
-        r       : in bit;
-        o       : out bit;
-        o_n     : out bit
+        s       : in std_logic;
+        r       : in std_logic;
+        o       : out std_logic;
+        o_n     : out std_logic
     );
 end register_bit;
 
