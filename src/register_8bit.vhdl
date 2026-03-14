@@ -6,6 +6,7 @@ entity register_8bit is
 	port (
 		values  : in std_logic_vector(7 downto 0);
 		w		: in std_logic;
+		write	: in std_logic;
 		clk		: in std_logic;
 		rst		: in std_logic;
 		o_values: out std_logic_vector(7 downto 0)
@@ -17,18 +18,20 @@ component register_bit is
 	port (
 		v       : in std_logic;
 		w		: in std_logic;
+		clk		: in std_logic;
 		rst		: in std_logic;
 		q		: out std_logic
 	);
 end component;
-signal write:			std_logic;
+signal write_sig:			std_logic;
 begin
-	write <= clk and w;
+	write_sig <= write and w;
 
 	bit_0: register_bit
 	port map (
 	  v   => values(0),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(0)
 	);
@@ -36,7 +39,8 @@ begin
 	bit_1: register_bit
 	port map (
 	  v   => values(1),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(1)
 	);
@@ -44,7 +48,8 @@ begin
 	bit_2: register_bit
 	port map (
 	  v   => values(2),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(2)
 	);
@@ -52,7 +57,8 @@ begin
 	bit_3: register_bit
 	port map (
 	  v   => values(3),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(3)
 	);
@@ -60,7 +66,8 @@ begin
 	bit_4: register_bit
 	port map (
 	  v   => values(4),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(4)
 	);
@@ -68,7 +75,8 @@ begin
 	bit_5: register_bit
 	port map (
 	  v   => values(5),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(5)
 	);
@@ -76,7 +84,8 @@ begin
 	bit_6: register_bit
 	port map (
 	  v   => values(6),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(6)
 	);
@@ -84,7 +93,8 @@ begin
 	bit_7: register_bit
 	port map (
 	  v   => values(7),
-	  w   => write,
+	  w   => write_sig,
+	  clk => clk,
 	  rst => rst,
 	  q   => o_values(7)
 	);

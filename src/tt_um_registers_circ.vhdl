@@ -20,6 +20,7 @@ component register_8bit is
 	port (
 		values  : in std_logic_vector(7 downto 0);
 		w		: in std_logic;
+		write	: in std_logic;
 		clk		: in std_logic;
 		rst		: in std_logic;
 		o_values: out std_logic_vector(7 downto 0)
@@ -75,8 +76,9 @@ begin
 	register_0: register_8bit
 	port map (
 	  values   => ui_in,
-	  w        => write,
-	  clk      => reg_clks(0),
+	  w        => reg_clks(0),
+	  write    => write,
+	  clk      => clk,
 	  rst      => rst_n,
 	  o_values => register_0_buffer
 	);
@@ -84,8 +86,9 @@ begin
 	register_1: register_8bit
 	port map (
 	  values   => ui_in,
-	  w        => write,
-	  clk      => reg_clks(1),
+	  w        => reg_clks(1),
+	  write    => write,
+	  clk      => clk,
 	  rst      => rst_n,
 	  o_values => register_1_buffer
 	);
@@ -93,8 +96,9 @@ begin
 	register_2: register_8bit
 	port map (
 	  values   => ui_in,
-	  w        => write,
-	  clk      => reg_clks(2),
+	  w        => reg_clks(2),
+	  write    => write,
+	  clk      => clk,
 	  rst      => rst_n,
 	  o_values => register_2_buffer
 	);
@@ -102,8 +106,9 @@ begin
 	register_3: register_8bit
 	port map (
 	  values   => ui_in,
-	  w        => write,
-	  clk      => reg_clks(3),
+	  w        => reg_clks(3),
+	  write    => write,
+	  clk      => clk,
 	  rst      => rst_n,
 	  o_values => register_3_buffer
 	);

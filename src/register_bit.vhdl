@@ -6,6 +6,7 @@ entity register_bit is
 	port (
 		v       : in std_logic;
 		w		: in std_logic;
+		clk		: in std_logic;
 		rst		: in std_logic;
 		q		: out std_logic
 	);
@@ -14,12 +15,12 @@ end register_bit;
 architecture Behavioral of register_bit is
 begin
 
-	process(w)
+	process(clk)
 	begin
-		if rising_edge(w) then
+		if rising_edge(clk) then
 			if rst = '1' then
 				q <= '0';
-			else
+			elsif w = '1' then
 				q <= v;
 			end if;
 		end if;
