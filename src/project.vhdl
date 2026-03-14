@@ -282,9 +282,9 @@ architecture Behavioral of register_mux is
 begin
 
 	output <=
-		register_0 when (selector = '0') else
-		register_1 when (selector = '1') else
-		register_2 when (selector = '2') else
+		register_0 when (selector = 0) else
+		register_1 when (selector = 1) else
+		register_2 when (selector = 2) else
 		register_3;
 
 end Behavioral;
