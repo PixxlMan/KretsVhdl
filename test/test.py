@@ -31,8 +31,10 @@ async def test_project(dut):
 
     dut.ui_in.value = 234
 
-    dut.uio_in.value[0] = 1 # write mode
-    dut.uio_in.value[1] = 0 # to register r0
+    dut.uio_in.value = 1 # write to r0
+    #dut.uio_in.value[0] = 1 # write mode
+    #dut.uio_in.value[1] = 0 # to register r0
+
     await ClockCycles(dut.clk, 10)
 
     assert dut.uo_out.value == 0
