@@ -252,12 +252,12 @@ entity control_unit is
 end control_unit;
 
 architecture Behavioral of control_unit is
-
 begin
-	clk_reg(0) <= '1' when addr = '0' else '0';
-	clk_reg(1) <= '1' when addr = '1' else '0';
-	clk_reg(2) <= '1' when addr = '2' else '0';
-	clk_reg(3) <= '1' when addr = '3' else '0';
+
+	clk_reg(0) <= '1' when (addr = 0) else '0';
+	clk_reg(1) <= '1' when (addr = 1) else '0';
+	clk_reg(2) <= '1' when (addr = 2) else '0';
+	clk_reg(3) <= '1' when (addr = 3) else '0';
 	
 end Behavioral;
 
