@@ -53,7 +53,7 @@ signal addr_input: unsigned(1 downto 0);
 begin
 
 	write <= uio_in(0);
-	addr_input <= unsigned(ui_in(1 to 2));
+	addr_input <= unsigned(ui_in(2 to 1));
 	
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
