@@ -29,34 +29,27 @@ async def test_project(dut):
     
     #######
     
-    await send(dut, True, 0, 0)
-    await send(dut, True, 1, 10)
-    await send(dut, True, 2, 20)
-    await send(dut, True, 3, 30)
-    assert await send(dut, False, 3) == 30
-    assert await send(dut, False, 0) == 0
-    assert await send(dut, False, 1) == 10
-    assert await send(dut, False, 2) == 20
+    await send(dut, True, 0, 100)
+    await send(dut, True, 1, 101)
+    await send(dut, True, 2, 102)
+    await send(dut, True, 3, 103)
 
-    
-    # await send(dut, True, 0, 100)
-    # await send(dut, True, 1, 101)
+    assert await send(dut, False, 0) == 100
+    assert await send(dut, False, 0) == 100
 
-    # assert await send(dut, False, 0) == 100
-    # assert await send(dut, False, 1) == 101
-    # assert await send(dut, False, 0) == 100
+    await send(dut, True, 0, 10)
 
-    # await send(dut, True, 0, 10)
+    assert await send(dut, False, 1) == 101
+    assert await send(dut, False, 2) == 102
+    assert await send(dut, False, 3) == 103
 
-    # assert await send(dut, False, 1) == 200
+    await send(dut, True, 3, 13)
 
-    # await send(dut, True, 2, 25)
-    # await send(dut, True, 3, 35)
+    assert await send(dut, False, 0) == 10
 
-    # assert await send(dut, False, 3) == 35
-    # assert await send(dut, False, 2) == 25
-
-    # assert await send(dut, False, 1) == 200
+    await send(dut, True, 3, 20)
+    assert await send(dut, False, 3) == 20
+    assert await send(dut, False, 0) == 10
 
 
 async def assign(dut, register: int, value: int):
