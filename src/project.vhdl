@@ -1,3 +1,5 @@
+############
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -35,10 +37,20 @@ component control_unit is
 		w_reg_1				: out std_logic
 	);
 end component;
+component register_mux is
+	port (
+		register_0	: in std_logic_vector(7 downto 0);
+		register_1	: in std_logic_vector(7 downto 0);
+		selector	: in std_logic;
+		output		: out std_logic_vector(7 downto 0)
+	);
+end component;
 signal clk_0: std_logic;
 signal clk_1: std_logic;
 signal w_0: std_logic;
 signal w_1: std_logic;
+signal register_0_buffer: std_logic_vector(7 downto 0);
+signal register_1_buffer: std_logic_vector(7 downto 0);
 begin
 	
 	uio_out <= "00000000";
@@ -53,6 +65,14 @@ begin
 	  w_reg_0   => w_0,
 	  w_reg_1   => w_1
 	);
+
+	mux: register_mux
+	port map (
+	  register_0 => register_0_buffer,
+	  register_1 => register_1_buffer,
+	  selector   => uio_in(1),
+	  output     => uo_out
+	);
 	
 	register_0: register_8bit
 	port map (
@@ -60,7 +80,7 @@ begin
 	  w        => w_0,
 	  clk      => clk_0,
 	  rst      => rst_n,
-	  o_values => uo_out
+	  o_values => register_0_buffer
 	);
 
 	register_1: register_8bit
@@ -69,10 +89,12 @@ begin
 	  w        => w_1,
 	  clk      => clk_1,
 	  rst      => rst_n,
-	  o_values => uo_out
+	  o_values => register_1_buffer
 	);
 
 end Behavioral;
+
+############
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -103,6 +125,8 @@ begin
 	
 end Behavioral;
 
+############
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -126,7 +150,6 @@ component register_bit is
 		q		: out std_logic
 	);
 end component;
-signal output_buffer:	std_logic_vector(7 downto 0);
 signal write:			std_logic;
 begin
 	write <= clk and w;
@@ -136,74 +159,68 @@ begin
 	  v   => values(0),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(0)
+	  q   => o_values(0)
 	);
-	o_values(0) <= output_buffer(0) when (clk & not(w));
 
 	bit_1: register_bit
 	port map (
 	  v   => values(1),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(1)
+	  q   => o_values(1)
 	);
-	o_values(1) <= output_buffer(1) when (clk & not(w));
 
 	bit_2: register_bit
 	port map (
 	  v   => values(2),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(2)
+	  q   => o_values(2)
 	);
-	o_values(2) <= output_buffer(2) when (clk & not(w));
 
 	bit_3: register_bit
 	port map (
 	  v   => values(3),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(3)
+	  q   => o_values(3)
 	);
-	o_values(3) <= output_buffer(3) when (clk & not(w));
 
 	bit_4: register_bit
 	port map (
 	  v   => values(4),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(4)
+	  q   => o_values(4)
 	);
-	o_values(4) <= output_buffer(4) when (clk & not(w));
 
 	bit_5: register_bit
 	port map (
 	  v   => values(5),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(5)
+	  q   => o_values(5)
 	);
-	o_values(5) <= output_buffer(5) when (clk & not(w));
 	
 	bit_6: register_bit
 	port map (
 	  v   => values(6),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(6)
+	  q   => o_values(6)
 	);
-	o_values(6) <= output_buffer(6) when (clk & not(w));
 
 	bit_7: register_bit
 	port map (
 	  v   => values(7),
 	  w   => write,
 	  rst => rst,
-	  q   => output_buffer(7)
+	  q   => o_values(7)
 	);
-	o_values(7) <= output_buffer(7) when (clk & not(w));
 
 end Behavioral;
+
+############
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -229,4 +246,26 @@ begin
 	clk_reg_1 <= (addr);
 	w_reg_1 <= w and (addr);
 	
+end Behavioral;
+
+############
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity register_mux is
+	port (
+		register_0	: in std_logic_vector(7 downto 0);
+		register_1	: in std_logic_vector(7 downto 0);
+		selector	: in std_logic;
+		output		: out std_logic_vector(7 downto 0)
+	);
+end register_mux;
+
+architecture Behavioral of register_mux is
+begin
+
+	output <= register_0 when (not selector) else register_1;
+
 end Behavioral;
