@@ -24,17 +24,14 @@ component register_bit is
 		q		: out std_logic
 	);
 end component;
-signal value: std_logic;
 begin
 	register_bit_inst: register_bit
 	port map (
 	  v   => ui_in(0),
 	  clk => clk,
 	  rst => rst_n,
-	  q   => value
+	  q   => uo_out(0)
 	);
-
-	uo_out(0) <= value;
 
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
