@@ -50,7 +50,7 @@ async def test_project(dut):
 async def send(dut, write: bool, register: int, value: int = 0) -> int:
     dut.ui_in.value = value
 
-    write_value = register << 22
+    write_value = register << 2
 
     if write:
         write_value = set_bit(write_value, 0)
