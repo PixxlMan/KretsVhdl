@@ -242,7 +242,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity control_unit is
 	port (
-		addr				: in std_logic_vector(3 downto 0);
+		addr				: in std_logic_vector(1 downto 0);
 		clk_reg				: out std_logic_vector(3 downto 0)
 	);
 end control_unit;
