@@ -55,7 +55,7 @@ async def send(dut, write: bool, register: int, value: int = 0) -> int:
     if register == 0:
         pass
     if register == 1:
-        write_value.set_bit(write_value, 2)
+        write_value = set_bit(write_value, 2)
 
     # write_value = register >> 2
     if write:
