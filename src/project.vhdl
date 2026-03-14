@@ -50,17 +50,17 @@ entity register_bit is
 end register_bit;
 
 architecture Behavioral of register_bit is
+    signal s: std_logic;
     signal r: std_logic;
     signal top_right: std_logic;
     signal bottom_right: std_logic;
 begin
 
-    if u == 1 then
-        r <= not(s);
-        top_right <= s nand bottom_right;
-        bottom_right <= r nand top_right;
-        o <= top_right;
-        o_n <= bottom_right;
-    end if;
+    s <= u nand v;
+    r <= u nand not(s);
+    top_right <= s nand bottom_right;
+    bottom_right <= r nand top_right;
+    o <= top_right;
+    o_n <= bottom_right;
     
 end Behavioral;
