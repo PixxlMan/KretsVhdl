@@ -2,7 +2,7 @@
 # See https://docs.cocotb.org/en/stable/quickstart.html for more info
 
 # List your source files here:
-SOURCE_FILES = tt_um_registers_circ.vhdl register_mux.vhdl register_bit.vhdl register_8bit.vhdl control_unit.vhdl
+SOURCE_FILES = register_mux.vhdl control_unit.vhdl register_bit.vhdl register_8bit.vhdl tt_um_registers_circ.vhdl
 
 # Common
 WAVES ?= 1
