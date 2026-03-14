@@ -24,7 +24,7 @@ component register_bit is
 		o_n     : buffer std_logic
 	);
 end component;
-signal value: std_logic;
+signal value: std_logic := "0";
 begin
 	bit_1: register_bit
 	port map (
@@ -48,14 +48,14 @@ entity register_bit is
 	port (
 		v       : in std_logic;
 		u       : in std_logic;
-		o       : buffer std_logic;
-		o_n     : buffer std_logic
+		o       : buffer std_logic := "0";
+		o_n     : buffer std_logic := "1"
 	);
 end register_bit;
 
 architecture Behavioral of register_bit is
-	signal s: std_logic;
-	signal r: std_logic;
+	signal s: std_logic := "0";
+	signal r: std_logic := "0";
 begin
 
 	s <= v and u;
