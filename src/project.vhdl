@@ -20,8 +20,8 @@ component register_bit is
 	port (
 		v       : in std_logic;
 		u       : in std_logic;
-		o       : out std_logic;
-		o_n     : out std_logic
+		o       : buffer std_logic;
+		o_n     : buffer std_logic
 	);
 end component;
 begin
