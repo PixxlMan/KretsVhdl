@@ -39,7 +39,7 @@ component register_mux is
 		register_2	: in std_logic_vector(7 downto 0);
 		register_3	: in std_logic_vector(7 downto 0);
 		selector	: in unsigned(1 downto 0);
-		output		: out std_logic_vector(7 downto 0)
+		outdata		: out std_logic_vector(7 downto 0)
 	);
 end component;
 signal reg_clks: std_logic_vector(3 downto 0);
@@ -70,7 +70,7 @@ begin
 	  register_2 => register_2_buffer,
 	  register_3 => register_3_buffer,
 	  selector   => addr_input,
-	  output     => uo_out
+	  outdata     => uo_out
 	);
 	
 	register_0: register_8bit
