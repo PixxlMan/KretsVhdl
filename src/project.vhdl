@@ -29,12 +29,8 @@ component register_8bit is
 end component;
 component control_unit is
 	port (
-		w					: in std_logic;
-		addr				: in std_logic;
-		clk_reg_0			: out std_logic;
-		clk_reg_1			: out std_logic;
-		w_reg_0				: out std_logic;
-		w_reg_1				: out std_logic
+		addr				: in std_logic_vector(3 downto 0);
+		clk_reg				: out std_logic_vector(3 downto 0)
 	);
 end component;
 component register_mux is
@@ -45,40 +41,40 @@ component register_mux is
 		output		: out std_logic_vector(7 downto 0)
 	);
 end component;
-signal clk_0: std_logic;
-signal clk_1: std_logic;
-signal w_0: std_logic;
-signal w_1: std_logic;
+signal reg_clks: std_logic_vector(3 downto 0);
 signal register_0_buffer: std_logic_vector(7 downto 0);
 signal register_1_buffer: std_logic_vector(7 downto 0);
+signal register_2_buffer: std_logic_vector(7 downto 0);
+signal register_3_buffer: std_logic_vector(7 downto 0);
+signal write: std_logic;
+signal addr: std_logic_vector(1 downto 0);
 begin
+
+	write <= uio_in(0);
+	addr <= ui_in(1 to 2);
 	
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
 	
 	control_unit_inst: control_unit
 	port map (
-	  w         => uio_in(0),
-	  addr      => uio_in(1),
-	  clk_reg_0 => clk_0,
-	  clk_reg_1 => clk_1,
-	  w_reg_0   => w_0,
-	  w_reg_1   => w_1
+	  addr    => addr,
+	  clk_reg => reg_clks
 	);
 
 	mux: register_mux
 	port map (
 	  register_0 => register_0_buffer,
 	  register_1 => register_1_buffer,
-	  selector   => uio_in(1),
+	  selector   => addr,
 	  output     => uo_out
 	);
 	
 	register_0: register_8bit
 	port map (
 	  values   => ui_in,
-	  w        => w_0,
-	  clk      => clk_0,
+	  w        => write,
+	  clk      => reg_clks(0),
 	  rst      => rst_n,
 	  o_values => register_0_buffer
 	);
@@ -86,10 +82,28 @@ begin
 	register_1: register_8bit
 	port map (
 	  values   => ui_in,
-	  w        => w_1,
-	  clk      => clk_1,
+	  w        => write,
+	  clk      => reg_clks(1),
 	  rst      => rst_n,
 	  o_values => register_1_buffer
+	);
+
+	register_2: register_8bit
+	port map (
+	  values   => ui_in,
+	  w        => write,
+	  clk      => reg_clks(2),
+	  rst      => rst_n,
+	  o_values => register_2_buffer
+	);
+
+	register_3: register_8bit
+	port map (
+	  values   => ui_in,
+	  w        => write,
+	  clk      => reg_clks(3),
+	  rst      => rst_n,
+	  o_values => register_3_buffer
 	);
 
 end Behavioral;
@@ -228,23 +242,18 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity control_unit is
 	port (
-		w					: in std_logic;
-		addr				: in std_logic;
-		clk_reg_0			: out std_logic;
-		clk_reg_1			: out std_logic;
-		w_reg_0				: out std_logic;
-		w_reg_1				: out std_logic
+		addr				: in std_logic_vector(3 downto 0);
+		clk_reg				: out std_logic_vector(3 downto 0)
 	);
 end control_unit;
 
 architecture Behavioral of control_unit is
+
 begin
-
-	clk_reg_0 <= (not addr);
-	w_reg_0 <= w and (not addr);
-
-	clk_reg_1 <= (addr);
-	w_reg_1 <= w and (addr);
+	clk_reg(0) <= '1' when addr = '0' else '0';
+	clk_reg(1) <= '1' when addr = '1' else '0';
+	clk_reg(2) <= '1' when addr = '2' else '0';
+	clk_reg(3) <= '1' when addr = '3' else '0';
 	
 end Behavioral;
 
@@ -258,7 +267,9 @@ entity register_mux is
 	port (
 		register_0	: in std_logic_vector(7 downto 0);
 		register_1	: in std_logic_vector(7 downto 0);
-		selector	: in std_logic;
+		register_2	: in std_logic_vector(7 downto 0);
+		register_3	: in std_logic_vector(7 downto 0);
+		selector	: in std_logic_vector(1 downto 0);
 		output		: out std_logic_vector(7 downto 0)
 	);
 end register_mux;
@@ -266,6 +277,10 @@ end register_mux;
 architecture Behavioral of register_mux is
 begin
 
-	output <= register_0 when (selector = '0') else register_1;
+	output <=
+		register_0 when (selector = '0') else
+		register_1 when (selector = '1') else
+		register_2 when (selector = '2') else
+		register_3;
 
 end Behavioral;
