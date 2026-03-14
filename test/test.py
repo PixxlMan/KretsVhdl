@@ -32,8 +32,6 @@ async def test_project(dut):
     dut.ui_in.value = 234
 
     dut.uio_in.value = 1 # write to r0
-    #dut.uio_in.value[0] = 1 # write mode
-    #dut.uio_in.value[1] = 0 # to register r0
 
     await ClockCycles(dut.clk, 1)
 
@@ -42,3 +40,25 @@ async def test_project(dut):
     await ClockCycles(dut.clk, 1)
 
     assert dut.uo_out.value == 234
+
+    await ClockCycles(dut.clk, 10)
+
+    assert dut.uo_out.value == 234
+
+async def send(dut, write: bool, register: int, value: int):
+    dut.ui_in.value = value
+
+    if write:
+        if register == 0:
+            dut.uio_in.value = 1
+
+        elif register == 1:
+            dut.uio_in.value = 3
+            
+    else:
+        if register == 0:
+            dut.uio_in.value = 0
+        elif register == 1:
+            dut.uio_in.value = 2
+    
+    await ClockCycles(dut.clk, 1)
