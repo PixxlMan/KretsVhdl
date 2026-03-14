@@ -54,6 +54,7 @@ async def send(dut, write: bool, register: int, value: int = 0) -> int:
     if write:
         write_value = set_bit(write_value, 0)
     
+    print(write_value)
     dut.uio_in.value = write_value
     
     await ClockCycles(dut.clk, 1)
