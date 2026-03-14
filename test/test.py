@@ -34,12 +34,6 @@ async def test_project(dut):
 
     assert await send(dut, False, 0) == 100
     assert await send(dut, False, 1) == 200
-
-    await send(dut, True, 0, 100)
-    await send(dut, True, 1, 200)
-
-    assert await send(dut, False, 0) == 100
-    assert await send(dut, False, 1) == 200
     assert await send(dut, False, 0) == 100
 
     await send(dut, True, 0, 35)
