@@ -18,8 +18,7 @@ end tt_um_example;
 architecture Behavioral of tt_um_example is
 component register_bit is
     port (
-        s       : in std_logic;
-        r       : in std_logic;
+        v       : in std_logic;
         o       : out std_logic;
         o_n     : out std_logic
     );
@@ -27,12 +26,11 @@ end component;
 begin
     bit_1: register_bit
     port map (
-        s   => ui_in(0),
-        r   => ui_in(1),
+        v   => ui_in(0),
+        u   => clk,
         o   => uo_out(0)
     );
 
-    --uo_out <= std_logic_vector(unsigned(ui_in) + unsigned(uio_in));
     uio_out <= "00000000";
     uio_oe <= "00000000";
 
@@ -44,21 +42,25 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity register_bit is
     port (
-        s       : in std_logic;
-        r       : in std_logic;
+        v       : in std_logic;
+        u       : in std_logic;
         o       : out std_logic;
         o_n     : out std_logic
     );
 end register_bit;
 
 architecture Behavioral of register_bit is
+    signal r: std_logic;
     signal top_right: std_logic;
     signal bottom_right: std_logic;
 begin
 
-    top_right <= s nand bottom_right;
-    bottom_right <= r nand top_right;
-    o <= top_right;
-    o_n <= bottom_right;
-
+    if u == 1 then
+        r <= not(s);
+        top_right <= s nand bottom_right;
+        bottom_right <= r nand top_right;
+        o <= top_right;
+        o_n <= bottom_right;
+    end if;
+    
 end Behavioral;
