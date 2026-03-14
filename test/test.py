@@ -60,10 +60,10 @@ async def test_project(dut):
 
 
 async def assign(dut, register: int, value: int):
-    pass
+    await send(dut, register, value)
 
 async def read(dut, register: int) -> int:
-    pass
+    return await read(dut, register)
 
 
 async def send(dut, write: bool, register: int, value: int = 0) -> int:
