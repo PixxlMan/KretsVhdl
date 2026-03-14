@@ -28,7 +28,7 @@ begin
     bit_1: register_bit
     port map (
         s   => ui_in(0),
-        r   => not(ui_in(0)),
+        r   => ui_in(1),
         o   => uo_out(0)
     );
 
