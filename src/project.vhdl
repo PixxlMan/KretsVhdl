@@ -29,8 +29,8 @@ component register_8bit is
 end component;
 component control_unit is
 	port (
-		addr				: in std_logic_vector(3 downto 0);
-		clk_reg				: out std_logic_vector(3 downto 0)
+		addr				: in std_logic_vector(1 downto 0);
+		clk_reg				: out std_logic_vector(1 downto 0)
 	);
 end component;
 component register_mux is
