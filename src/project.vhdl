@@ -45,23 +45,19 @@ entity register_bit is
 	port (
 		v       : in std_logic;
 		u       : in std_logic;
-		o       : out std_logic;
-		o_n     : out std_logic
+		o       : buffer std_logic;
+		o_n     : buffer std_logic
 	);
 end register_bit;
 
 architecture Behavioral of register_bit is
 	signal s: std_logic;
 	signal r: std_logic;
-	signal top_right: std_logic;
-	signal bottom_right: std_logic;
 begin
 
-	-- s <= u nand v;
-	-- r <= u nand not(s);
-	-- top_right <= s nand bottom_right;
-	-- bottom_right <= r nand top_right;
-	-- o <= top_right;
-	-- o_n <= bottom_right;
+	s <= v and u;
+	r <= not(s);
+	o <= s nand o_n;
+	o_n <= r nand o;
 	
 end Behavioral;
