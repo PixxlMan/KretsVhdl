@@ -29,7 +29,7 @@ component register_8bit is
 end component;
 component control_unit is
 	port (
-		addr				: in std_logic_vector(1 downto 0);
+		addr				: in unsigned(1 downto 0);
 		clk_reg				: out std_logic_vector(3 downto 0)
 	);
 end component;
@@ -39,7 +39,7 @@ component register_mux is
 		register_1	: in std_logic_vector(7 downto 0);
 		register_2	: in std_logic_vector(7 downto 0);
 		register_3	: in std_logic_vector(7 downto 0);
-		selector	: in std_logic_vector(1 downto 0);
+		selector	: in unsigned(1 downto 0);
 		output		: out std_logic_vector(7 downto 0)
 	);
 end component;
@@ -49,11 +49,11 @@ signal register_1_buffer: std_logic_vector(7 downto 0);
 signal register_2_buffer: std_logic_vector(7 downto 0);
 signal register_3_buffer: std_logic_vector(7 downto 0);
 signal write: std_logic;
-signal addr_input: std_logic_vector(1 downto 0);
+signal addr_input: unsigned(1 downto 0);
 begin
 
-	write <= uio_in(0);
-	addr_input <= ui_in(2 downto 1);
+	write <= unsigned(uio_in(0));
+	addr_input <= unsigned(ui_in(2 downto 1));
 	
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
@@ -246,7 +246,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity control_unit is
 	port (
-		addr				: in std_logic_vector(1 downto 0);
+		addr				: in unsigned(1 downto 0);
 		clk_reg				: out std_logic_vector(3 downto 0)
 	);
 end control_unit;
@@ -273,7 +273,7 @@ entity register_mux is
 		register_1	: in std_logic_vector(7 downto 0);
 		register_2	: in std_logic_vector(7 downto 0);
 		register_3	: in std_logic_vector(7 downto 0);
-		selector	: in std_logic_vector(1 downto 0);
+		selector	: in unsigned(1 downto 0);
 		output		: out std_logic_vector(7 downto 0)
 	);
 end register_mux;
