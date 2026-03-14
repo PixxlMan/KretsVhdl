@@ -41,6 +41,7 @@ async def test_project(dut):
 
     # await send(dut, True, 3, 13)
 
+    await send(dut, True, 0, 10)
     assert await send(dut, False, 0) == 10
 
     await send(dut, True, 3, 20)
@@ -72,8 +73,7 @@ async def send(dut, write: bool, register: int, value: int = 0) -> int:
 
     if write:
         write_value = set_bit(write_value, 0)
-    
-    print(write_value)
+
     dut.uio_in.value = write_value
     
     await ClockCycles(dut.clk, 1)
