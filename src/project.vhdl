@@ -126,7 +126,7 @@ component register_bit is
 		q		: out std_logic
 	);
 end component;
-signal bq: bit_vector(7 downto 0);
+signal bq: std_logic_vector(7 downto 0);
 begin
 	bit_0: register_bit
 	port map (
