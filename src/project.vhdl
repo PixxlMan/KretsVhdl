@@ -16,12 +16,20 @@ entity tt_um_example is
 end tt_um_example;
 
 architecture Behavioral of tt_um_example is
+component register_8bit is
+	port (
+		values  : in std_logic_vector(7 downto 0);
+		clk		: in std_logic;
+		rst		: in std_logic;
+		o_values: out std_logic_vector(7 downto 0)
+	);
+end component;
 begin
 	
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
-	
-	register_0: entity work.register_8bit
+
+	register_8bit_inst: register_8bit
 	port map (
 	  values   => ui_in,
 	  clk      => clk,
@@ -74,9 +82,16 @@ entity register_8bit is
 end register_8bit;
 
 architecture Behavioral of register_8bit is
+component register_bit is
+	port (
+		v       : in std_logic;
+		clk		: in std_logic;
+		rst		: in std_logic;
+		q		: out std_logic
+	);
+end component;
 begin
-
-	bit_0: entity work.register_bit
+	bit_0: register_bit
 	port map (
 	  v   => values(0),
 	  clk => clk,
@@ -84,7 +99,7 @@ begin
 	  q   => o_values(0)
 	);
 
-	bit_1: entity work.register_bit
+	bit_1: register_bit
 	port map (
 	  v   => values(1),
 	  clk => clk,
@@ -92,7 +107,7 @@ begin
 	  q   => o_values(1)
 	);
 
-	bit_2: entity work.register_bit
+	bit_2: register_bit
 	port map (
 	  v   => values(2),
 	  clk => clk,
@@ -100,7 +115,7 @@ begin
 	  q   => o_values(2)
 	);
 
-	bit_3: entity work.register_bit
+	bit_3: register_bit
 	port map (
 	  v   => values(3),
 	  clk => clk,
@@ -108,7 +123,7 @@ begin
 	  q   => o_values(3)
 	);
 
-	bit_4: entity work.register_bit
+	bit_4: register_bit
 	port map (
 	  v   => values(4),
 	  clk => clk,
@@ -116,7 +131,7 @@ begin
 	  q   => o_values(4)
 	);
 
-	bit_5: entity work.register_bit
+	bit_5: register_bit
 	port map (
 	  v   => values(5),
 	  clk => clk,
@@ -124,7 +139,7 @@ begin
 	  q   => o_values(5)
 	);
 	
-	bit_6: entity work.register_bit
+	bit_6: register_bit
 	port map (
 	  v   => values(6),
 	  clk => clk,
@@ -132,7 +147,7 @@ begin
 	  q   => o_values(6)
 	);
 
-	bit_7: entity work.register_bit
+	bit_7: register_bit
 	port map (
 	  v   => values(7),
 	  clk => clk,
