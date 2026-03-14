@@ -143,7 +143,7 @@ begin
 	bit_1: register_bit
 	port map (
 	  v   => values(1),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
 	  q   => output_buffer(1)
 	);
@@ -152,7 +152,7 @@ begin
 	bit_2: register_bit
 	port map (
 	  v   => values(2),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
 	  q   => output_buffer(2)
 	);
@@ -161,7 +161,7 @@ begin
 	bit_3: register_bit
 	port map (
 	  v   => values(3),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
 	  q   => output_buffer(3)
 	);
@@ -170,7 +170,7 @@ begin
 	bit_4: register_bit
 	port map (
 	  v   => values(4),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
 	  q   => output_buffer(4)
 	);
@@ -179,7 +179,7 @@ begin
 	bit_5: register_bit
 	port map (
 	  v   => values(5),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
 	  q   => output_buffer(5)
 	);
@@ -188,7 +188,7 @@ begin
 	bit_6: register_bit
 	port map (
 	  v   => values(6),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
 	  q   => output_buffer(6)
 	);
@@ -197,7 +197,7 @@ begin
 	bit_7: register_bit
 	port map (
 	  v   => values(7),
-	  w   => clk and w,
+	  w   => write,
 	  rst => rst,
 	  q   => output_buffer(7)
 	);
