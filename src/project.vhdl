@@ -52,7 +52,7 @@ signal write: std_logic;
 signal addr_input: unsigned(1 downto 0);
 begin
 
-	write <= unsigned(uio_in(0));
+	write <=uio_in(0);
 	addr_input <= unsigned(ui_in(2 downto 1));
 	
 	uio_out <= "00000000";
