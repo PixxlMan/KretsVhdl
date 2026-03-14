@@ -32,12 +32,16 @@ async def test_project(dut):
     await send(dut, True, 0, 100)
     await send(dut, True, 1, 200)
 
-    assert await send(dut, False, 0, 0) == 100
-    assert await send(dut, False, 1, 0) == 200
-    assert await send(dut, False, 0, 0) == 100
+    assert await send(dut, False, 0) == 100
+    assert await send(dut, False, 1) == 200
+    assert await send(dut, False, 0) == 100
+
+    await send(dut, True, 0, 35)
+
+    assert await send(dut, False, 1) == 200
 
 
-async def send(dut, write: bool, register: int, value: int) -> int:
+async def send(dut, write: bool, register: int, value: int = 0) -> int:
     dut.ui_in.value = value
 
     if write:
