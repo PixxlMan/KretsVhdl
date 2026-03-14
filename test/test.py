@@ -40,6 +40,14 @@ async def test_project(dut):
 
     assert await send(dut, False, 1) == 200
 
+    await send(dut, True, 2, 25)
+    await send(dut, True, 3, 35)
+
+    assert await send(dut, False, 3) == 35
+    assert await send(dut, False, 2) == 25
+    
+    assert await send(dut, False, 1) == 200
+
 
 async def send(dut, write: bool, register: int, value: int = 0) -> int:
     dut.ui_in.value = value
