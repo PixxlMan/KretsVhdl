@@ -17,9 +17,26 @@ end tt_um_example;
 
 architecture Behavioral of tt_um_example is
 begin
-
+    
     uo_out <= std_logic_vector(unsigned(ui_in) + unsigned(uio_in));
     uio_out <= "00000000";
     uio_oe <= "00000000";
+
+end Behavioral;
+
+entity register_bit is
+    port (
+        s       : in bit;
+        r       : in bit;
+        o       : out bit;
+        o_n     : out bit
+    );
+end register_bit;
+
+architecture Behavioral of register_bit is
+begin
+
+    o <= s nand o_n;
+    o_n <= r nand o;
 
 end Behavioral;
