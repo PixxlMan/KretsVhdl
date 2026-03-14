@@ -26,7 +26,7 @@ component register_bit is
 end component;
 begin
 	
-	uo_out <= "00000000";
+	--uo_out <= "00000000";
 	uio_out <= "00000000";
 	uio_oe <= "00000000";
 	
