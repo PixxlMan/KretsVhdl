@@ -7,4 +7,4 @@ The circuit operates in two modes, write or read mode. Read mode is enabled when
 Select which of the four registers to use using the two selector bits (uio[1],uio[2]). 
 The output (uo) will be the value of the selected register if using read mode, and if using write mode the input values (ui) will be written to the register.
 
-![high level schematic](image.png)
+![high level schematic](docs/image.png)
